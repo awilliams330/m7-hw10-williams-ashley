@@ -11,15 +11,20 @@ var text = localStorage.getItem('text')
 if (text) {
   textarea.textContent = text
 } 
+var cookiesArr = document.cookie.split('; ')
+var nameCookie = cookiesArr.find(function(cookieStr) {
+  return cookieStr.startsWith('name')
+})
+  if (nameCookie) {
+    nameSpan.textContent = nameCookie.split('=')[1]
+  }
 
+  nameSpan.onblur = function() {
+    document.cookie =  'name=' + nameSpan.textContent
+  }
 
 formEl.onsubmit = function(e) {
-  // prevents form submission
   e.preventDefault()
-  // save name element's content to cookies
-
-
-  // save textarea's content to localstorage
   textField = textarea.value
   localStorage.setItem('text', textField)
 
